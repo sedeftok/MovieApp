@@ -38,15 +38,11 @@ class MovieListVC: UIViewController {
     }
     
     private func configure() {
-        collectionView.backgroundColor = .systemGreen
         view.backgroundColor = .white
         view.addSubview(collectionView)
         
-        
         movieCollectionView()
     }
-    
-    
     
     private func movieCollectionView() {
         collectionView.snp.makeConstraints { make in
@@ -57,34 +53,43 @@ class MovieListVC: UIViewController {
 }
 
 extension MovieListVC: MovieListViewModelDelegate {
-    func getMovieData(data: [MovieListResult]) {
+    func success() {
         collectionView.reloadData()
-        print(data)
     }
+    
+//    func getMovieData(data: [MovieListResult]) {
+//        collectionView.reloadData()
+//        print(data)
+//    }
 }
-
 
 extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        movieViewModel?.getMovieDataCount() ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListCollectionViewCell.identifier, for: indexPath) as? MovieListCollectionViewCell else { return UICollectionViewCell()
-      }
-        cell.backgroundColor = .red
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListCollectionViewCell.identifier, for: indexPath) as? MovieListCollectionViewCell else { return UICollectionViewCell()
+        }
+        guard let data = movieViewModel?.getMovieData() else { return cell }
+        cell.configure()
+        cell.saveModel(data: data[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let column = 1
-        let width = collectionView.frame.size.width
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.minimumLineSpacing = 0
-        let w = width / 1
-        let h = w * 0.6
-        return CGSize(width: w, height: h)
-    }
+      let column = 1
+      let width = UIScreen.main.bounds.width
+        //collectionView.frame.size.width
+        
+      let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
+      flowLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
+      flowLayout.minimumInteritemSpacing = 16
+      flowLayout.minimumLineSpacing = 16
+      //let w = width / 1
+      //let h = w * 0.6
+      //return CGSize(width: w, height: h)
+        let itemW = (width - 48) / 2
+        return CGSize(width: itemW, height: itemW * 1.6)
+      }
 }

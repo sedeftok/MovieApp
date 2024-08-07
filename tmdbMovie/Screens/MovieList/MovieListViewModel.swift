@@ -10,15 +10,19 @@ import Foundation
 protocol MovieListViewModelProtocol {
     var delegate: MovieListViewModelDelegate? { get set }
     func loadMovieList()
+    
+    func getMovieData() -> [MovieListResult]
+    func getMovieDataCount() -> Int
 }
 
 protocol MovieListViewModelDelegate {
-    func getMovieData(data: [MovieListResult])
+    func success() //data: [MovieListResult])
 }
 
 class MovieListViewModel: MovieListViewModelProtocol {
     var delegate: MovieListViewModelDelegate?
     var client: HttpClientProtocol?
+    var movieData: [MovieListResult] = []
     
     init(client: HttpClientProtocol) {
         self.client = client
@@ -28,8 +32,17 @@ class MovieListViewModel: MovieListViewModelProtocol {
 extension MovieListViewModel {
     func loadMovieList() {
         client?.fetchData(completion: { movieData in
-            self.delegate?.getMovieData(data: movieData)
+            self.movieData = movieData
+            self.delegate?.success()
         })
+    }
+    
+    func getMovieData() -> [MovieListResult] {
+        movieData
+    }
+    
+    func getMovieDataCount() -> Int {
+        movieData.count
     }
 }
 

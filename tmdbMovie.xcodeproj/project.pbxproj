@@ -109,10 +109,10 @@
 		392221012C60C65B007BA3A7 /* MovieList */ = {
 			isa = PBXGroup;
 			children = (
-				392221022C60C664007BA3A7 /* Cell */,
 				392221032C60C67A007BA3A7 /* MovieListBuilder.swift */,
 				392221052C60C687007BA3A7 /* MovieListViewModel.swift */,
 				392221072C60C6A0007BA3A7 /* MovieListVC.swift */,
+				392221022C60C664007BA3A7 /* Cell */,
 			);
 			path = MovieList;
 			sourceTree = "<group>";
@@ -120,6 +120,7 @@
 		392221022C60C664007BA3A7 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -144,7 +145,6 @@
 		39D275112C623ADC00891FDC /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
-				39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
