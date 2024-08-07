@@ -19,6 +19,7 @@
 		392221082C60C6A0007BA3A7 /* MovieListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392221072C60C6A0007BA3A7 /* MovieListVC.swift */; };
 		3922210C2C60C71F007BA3A7 /* MovieListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3922210B2C60C71F007BA3A7 /* MovieListModel.swift */; };
 		3922210E2C60C7BF007BA3A7 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3922210D2C60C7BF007BA3A7 /* Client.swift */; };
+		39D275152C623B8A00891FDC /* MovieListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		392221072C60C6A0007BA3A7 /* MovieListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListVC.swift; sourceTree = "<group>"; };
 		3922210B2C60C71F007BA3A7 /* MovieListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModel.swift; sourceTree = "<group>"; };
 		3922210D2C60C7BF007BA3A7 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 		392220E02C60C5BE007BA3A7 /* tmdbMovie */ = {
 			isa = PBXGroup;
 			children = (
+				39D275112C623ADC00891FDC /* Extentions */,
 				392221092C60C6CB007BA3A7 /* Entity */,
 				392221002C60C64B007BA3A7 /* Screens */,
 				392220FF2C60C60E007BA3A7 /* Supporting Files */,
@@ -124,8 +127,8 @@
 		392221092C60C6CB007BA3A7 /* Entity */ = {
 			isa = PBXGroup;
 			children = (
-				3922210A2C60C6D1007BA3A7 /* Network */,
 				3922210B2C60C71F007BA3A7 /* MovieListModel.swift */,
+				3922210A2C60C6D1007BA3A7 /* Network */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -136,6 +139,14 @@
 				3922210D2C60C7BF007BA3A7 /* Client.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		39D275112C623ADC00891FDC /* Extentions */ = {
+			isa = PBXGroup;
+			children = (
+				39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */,
+			);
+			path = Extentions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -223,6 +234,7 @@
 				392220E22C60C5BE007BA3A7 /* AppDelegate.swift in Sources */,
 				392221042C60C67A007BA3A7 /* MovieListBuilder.swift in Sources */,
 				392220E42C60C5BE007BA3A7 /* SceneDelegate.swift in Sources */,
+				39D275152C623B8A00891FDC /* MovieListCollectionViewCell.swift in Sources */,
 				392221082C60C6A0007BA3A7 /* MovieListVC.swift in Sources */,
 				392221062C60C687007BA3A7 /* MovieListViewModel.swift in Sources */,
 			);
@@ -292,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -346,7 +358,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
