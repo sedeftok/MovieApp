@@ -56,11 +56,6 @@ extension MovieListVC: MovieListViewModelDelegate {
     func success() {
         collectionView.reloadData()
     }
-    
-//    func getMovieData(data: [MovieListResult]) {
-//        collectionView.reloadData()
-//        print(data)
-//    }
 }
 
 extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -78,18 +73,23 @@ extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-      let column = 1
       let width = UIScreen.main.bounds.width
-        //collectionView.frame.size.width
         
       let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
       flowLayout.sectionInset = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
       flowLayout.minimumInteritemSpacing = 16
       flowLayout.minimumLineSpacing = 16
-      //let w = width / 1
-      //let h = w * 0.6
-      //return CGSize(width: w, height: h)
-        let itemW = (width - 48) / 2
-        return CGSize(width: itemW, height: itemW * 1.6)
+        
+      let itemW = (width - 48) / 2
+      return CGSize(width: itemW, height: itemW * 1.6)
       }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let data = movieViewModel?.getMovieData() else { return }
+        let id = data[indexPath.row].id ?? 0
+        let vc = MovieListDetailBuilder.makeMovieList(id: id)
+        self.present(vc, animated: true)
+        print(id)
+        
+    }
 }

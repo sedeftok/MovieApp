@@ -16,7 +16,7 @@ protocol MovieListViewModelProtocol {
 }
 
 protocol MovieListViewModelDelegate {
-    func success() //data: [MovieListResult])
+    func success()
 }
 
 class MovieListViewModel: MovieListViewModelProtocol {

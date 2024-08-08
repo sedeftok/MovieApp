@@ -48,7 +48,6 @@ class MovieListCollectionViewCell: UICollectionViewCell {
     
     private func configureCell() {
         configureUI()
-       // configureConstaints()
     }
     
     private func configureUI() {
@@ -63,42 +62,13 @@ class MovieListCollectionViewCell: UICollectionViewCell {
         makeConstraints()
     }
     
-//    private func configureConstaints() {
-//        movieImage()
-//        movieName1()
-//    }
-    
-//    private func movieImage() {
-//        image.snp.makeConstraints { make in
-//
-//            make.top.equalToSuperview()
-//            make.left.equalToSuperview()
-//            make.right.equalToSuperview()
-//
-//            make.height.equalTo(contentView.snp.width).multipliedBy(0.75)
-//        }
-//    }
-//
-//    private func movieName1() {
-//        movieName.snp.makeConstraints { make in
-//            make.top.equalTo(image.snp.bottom).offset(8)
-//            make.left.equalToSuperview()
-//            make.right.equalToSuperview()
-//            make.bottom.equalToSuperview()
-//        }
-//    }
-//
     func saveModel(data: MovieListResult) {
         movieName.text = data.title
-        
         
         let imageURl = "https://image.tmdb.org/t/p/w500\(data.posterPath ?? "")"
         if let url = URL(string: imageURl) {
             image.kf.setImage(with: url)
         }
-
-       
-        
     }
 }
 

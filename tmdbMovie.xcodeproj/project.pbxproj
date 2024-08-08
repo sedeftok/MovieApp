@@ -19,6 +19,10 @@
 		392221082C60C6A0007BA3A7 /* MovieListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 392221072C60C6A0007BA3A7 /* MovieListVC.swift */; };
 		3922210C2C60C71F007BA3A7 /* MovieListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3922210B2C60C71F007BA3A7 /* MovieListModel.swift */; };
 		3922210E2C60C7BF007BA3A7 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3922210D2C60C7BF007BA3A7 /* Client.swift */; };
+		398667B72C64A06700BA1D01 /* MovieListDetailBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398667B62C64A06700BA1D01 /* MovieListDetailBuilder.swift */; };
+		398667B92C64A0D700BA1D01 /* MovieListDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398667B82C64A0D700BA1D01 /* MovieListDetailViewModel.swift */; };
+		398667BB2C64A13A00BA1D01 /* MovieListDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398667BA2C64A13A00BA1D01 /* MovieListDetailVC.swift */; };
+		398667BD2C64F50400BA1D01 /* MovieDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398667BC2C64F50400BA1D01 /* MovieDetailModel.swift */; };
 		39D275152C623B8A00891FDC /* MovieListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,6 +38,10 @@
 		392221072C60C6A0007BA3A7 /* MovieListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListVC.swift; sourceTree = "<group>"; };
 		3922210B2C60C71F007BA3A7 /* MovieListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListModel.swift; sourceTree = "<group>"; };
 		3922210D2C60C7BF007BA3A7 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		398667B62C64A06700BA1D01 /* MovieListDetailBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListDetailBuilder.swift; sourceTree = "<group>"; };
+		398667B82C64A0D700BA1D01 /* MovieListDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListDetailViewModel.swift; sourceTree = "<group>"; };
+		398667BA2C64A13A00BA1D01 /* MovieListDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListDetailVC.swift; sourceTree = "<group>"; };
+		398667BC2C64F50400BA1D01 /* MovieDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailModel.swift; sourceTree = "<group>"; };
 		39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +109,7 @@
 		392221002C60C64B007BA3A7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				398667B52C649F3D00BA1D01 /* MovieListDetail */,
 				392221012C60C65B007BA3A7 /* MovieList */,
 			);
 			path = Screens;
@@ -129,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				3922210B2C60C71F007BA3A7 /* MovieListModel.swift */,
+				398667BC2C64F50400BA1D01 /* MovieDetailModel.swift */,
 				3922210A2C60C6D1007BA3A7 /* Network */,
 			);
 			path = Entity;
@@ -140,6 +150,16 @@
 				3922210D2C60C7BF007BA3A7 /* Client.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		398667B52C649F3D00BA1D01 /* MovieListDetail */ = {
+			isa = PBXGroup;
+			children = (
+				398667B62C64A06700BA1D01 /* MovieListDetailBuilder.swift */,
+				398667B82C64A0D700BA1D01 /* MovieListDetailViewModel.swift */,
+				398667BA2C64A13A00BA1D01 /* MovieListDetailVC.swift */,
+			);
+			path = MovieListDetail;
 			sourceTree = "<group>";
 		};
 		39D275112C623ADC00891FDC /* Extentions */ = {
@@ -229,8 +249,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				398667B92C64A0D700BA1D01 /* MovieListDetailViewModel.swift in Sources */,
+				398667BD2C64F50400BA1D01 /* MovieDetailModel.swift in Sources */,
 				3922210C2C60C71F007BA3A7 /* MovieListModel.swift in Sources */,
+				398667BB2C64A13A00BA1D01 /* MovieListDetailVC.swift in Sources */,
 				3922210E2C60C7BF007BA3A7 /* Client.swift in Sources */,
+				398667B72C64A06700BA1D01 /* MovieListDetailBuilder.swift in Sources */,
 				392220E22C60C5BE007BA3A7 /* AppDelegate.swift in Sources */,
 				392221042C60C67A007BA3A7 /* MovieListBuilder.swift in Sources */,
 				392220E42C60C5BE007BA3A7 /* SceneDelegate.swift in Sources */,

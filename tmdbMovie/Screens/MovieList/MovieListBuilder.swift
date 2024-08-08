@@ -13,6 +13,7 @@ class MovieListBuilder {
         let client = HttpClient()
         let viewModel = MovieListViewModel(client: client)
         vc.movieViewModel = viewModel
+        
         return vc
     }
 }
