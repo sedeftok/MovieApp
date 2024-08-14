@@ -35,6 +35,8 @@ struct MovieListResult: Codable {
     let video: Bool?
     let voteAverage: Double?
     let voteCount: Int?
+    
+    //var isFavorite: Bool = false
 
     enum CodingKeys: String, CodingKey {
         case adult

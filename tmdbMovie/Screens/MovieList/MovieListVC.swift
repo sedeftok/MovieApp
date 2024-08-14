@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 
+let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
 class MovieListVC: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
@@ -18,8 +20,11 @@ class MovieListVC: UIViewController {
         collectionView.register(MovieListCollectionViewCell.self, forCellWithReuseIdentifier: MovieListCollectionViewCell.identifier)
         return collectionView
     }()
-    
+    //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
     var movieViewModel: MovieListViewModelProtocol?
+    let context = appDelegate.persistentContainer.viewContext
+    var favMovieList: [FavoriteMovie] = []
+    var isSelectedMovie = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,10 +34,15 @@ class MovieListVC: UIViewController {
         initDelegate()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        fetchCoreData()
+    }
+    
     private func initDelegate() {
         collectionView.delegate = self
         collectionView.dataSource = self
         movieViewModel?.delegate = self
+        
         
         configure()
     }
@@ -50,6 +60,49 @@ class MovieListVC: UIViewController {
             make.left.right.equalTo(view)
         }
     }
+    
+    private func addCoreData(data: MovieListResult) {
+        let movie = FavoriteMovie(context: context)
+        
+        movie.id = String(data.id ?? 0)
+        movie.title = data.title
+        
+        appDelegate.saveContext()
+    }
+    
+    private func deleteCoreData(data: MovieListResult) {
+        for (index, list) in favMovieList.enumerated() {
+            if list.title == data.title {
+                
+                let movie = self.favMovieList[index]
+                
+                self.context.delete(movie)
+                
+                appDelegate.saveContext()
+            }
+        }
+    }
+    
+    private func fetchCoreData() {
+        do {
+            favMovieList = try context.fetch(FavoriteMovie.fetchRequest())
+            print(favMovieList)
+        } catch  {
+            print(error)
+        }
+    }
+    
+    private func isSelected(data: MovieListResult) -> Bool {
+        for i in favMovieList {
+            if i.title == data.title {
+                isSelectedMovie = true
+            }else{
+               isSelectedMovie = false
+            }
+        }
+        
+        return isSelectedMovie
+    }
 }
 
 extension MovieListVC: MovieListViewModelDelegate {
@@ -58,7 +111,23 @@ extension MovieListVC: MovieListViewModelDelegate {
     }
 }
 
-extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MovieListCollectionProtocol {
+    func favoriteTapped(data: MovieListResult) {
+        guard !favMovieList.isEmpty else {
+            addCoreData(data: data)
+            return
+        }
+        
+        for i in favMovieList {
+            if i.title == data.title {
+                deleteCoreData(data: data)
+            }else{
+                addCoreData(data: data)
+            }
+        }
+    }
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         movieViewModel?.getMovieDataCount() ?? 0
     }
@@ -66,9 +135,13 @@ extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieListCollectionViewCell.identifier, for: indexPath) as? MovieListCollectionViewCell else { return UICollectionViewCell()
         }
-        guard let data = movieViewModel?.getMovieData() else { return cell }
+        guard let dataTwo = movieViewModel?.getMovieData() else { return cell }
+        let data = dataTwo[indexPath.row]
         cell.configure()
-        cell.saveModel(data: data[indexPath.row])
+        cell.cellDelegate = self
+        let isSelected = isSelected(data: data)
+        cell.saveModel(data: data, isSelected: isSelected)
+        
         return cell
     }
     
@@ -92,4 +165,5 @@ extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         print(id)
         
     }
+    
 }

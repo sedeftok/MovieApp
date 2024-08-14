@@ -13,6 +13,7 @@ protocol MovieListViewModelProtocol {
     
     func getMovieData() -> [MovieListResult]
     func getMovieDataCount() -> Int
+    func updateMovieData(at index: Int, with movie: MovieListResult)
 }
 
 protocol MovieListViewModelDelegate {
@@ -44,5 +45,10 @@ extension MovieListViewModel {
     func getMovieDataCount() -> Int {
         movieData.count
     }
+    
+    func updateMovieData(at index: Int, with movie: MovieListResult) {
+            guard index >= 0 && index < movieData.count else { return }
+            movieData[index] = movie
+        }
 }
 
