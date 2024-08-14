@@ -11,6 +11,6 @@ struct Movie {
     let title: String?
     let id: Int
     let overview: String
-    let posterURL: String?
+    let poster: String?
     
 }

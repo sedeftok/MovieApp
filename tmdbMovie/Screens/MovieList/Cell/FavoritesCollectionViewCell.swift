@@ -1,20 +1,15 @@
 //
-//  MovieListCollectionViewCell.swift
+//  FavoritesCollectionViewCell.swift
 //  tmdbMovie
 //
-//  Created by sedef tok on 6.08.2024.
+//  Created by sedef tok on 14.08.2024.
 //
 
 import UIKit
-import Kingfisher
 
-protocol MovieListCollectionProtocol {
-    func favoriteTapped(data: MovieListResult)
-}
-
-class MovieListCollectionViewCell: UICollectionViewCell {
+class FavoritesCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "MovieListCollectionViewCell"
+    static let identifier = "FavoritesCollectionViewCell"
     
     private enum Constant {
         static let viewCornerRadius: CGFloat = 12
@@ -46,20 +41,10 @@ class MovieListCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var favoriteButton: UIButton = {
-        let button = UIButton(type: .system)
-            button.setImage(UIImage(systemName: "heart"), for: .normal) // Kalp simgesi
-            button.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
-            return button
-    }()
-    
-    var cellDelegate: MovieListCollectionProtocol?
-    var movieData: MovieListResult?
-    var isSelectedMovie = false
-    var favoriteButtonAction: (() -> Void)?
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        contentView.addSubview(movieName)
+    
         configureUI()
     }
     
@@ -67,14 +52,13 @@ class MovieListCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc private func favoriteButtonTapped() {
-        guard let data = movieData else { return }
-            cellDelegate?.favoriteTapped(data: data)
-
-            isSelectedMovie.toggle()
-            let imageName = isSelectedMovie ? "heart.fill" : "heart"
-            favoriteButton.setImage(UIImage(systemName: imageName), for: .normal)
-    }
+    func setup(with movie: FavoriteMovie) {
+        movieName.text = movie.title
+        let imageURl = "https://image.tmdb.org/t/p/w500\(movie.poster ?? "")"
+            if let url = URL(string: imageURl) {
+                image.kf.setImage(with: url)
+            }
+        }
     
     func configure() {
         configureCell()
@@ -87,36 +71,17 @@ class MovieListCollectionViewCell: UICollectionViewCell {
     private func configureUI() {
         contentView.addSubview(image)
         contentView.addSubview(movieName)
-        contentView.addSubview(favoriteButton)
         
         self.layer.cornerRadius = Constant.viewCornerRadius
         self.layer.borderWidth = Constant.viewCornerLineWidth
         self.layer.borderColor = UIColor.lightGray.cgColor
         self.layer.cornerRadius = 8
-        
+                                   
         makeConstraints()
     }
     
-    func saveModel(data: MovieListResult, isSelected: Bool) {
-        self.movieData = data
-        movieName.text = data.title
-        self.isSelectedMovie = isSelected
-        
-        let imageURl = "https://image.tmdb.org/t/p/w500\(data.posterPath ?? "")"
-        if let url = URL(string: imageURl) {
-            image.kf.setImage(with: url)
-        }
-        
-        if isSelected {
-            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-           
-        }else{
-            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        }
-    }
 }
-
-extension MovieListCollectionViewCell {
+extension FavoritesCollectionViewCell {
     func makeConstraints() {
         image.snp.makeConstraints { make in
             make.top.equalToSuperview()
@@ -131,12 +96,5 @@ extension MovieListCollectionViewCell {
             make.right.equalToSuperview().offset(-8)
             make.bottom.equalToSuperview().offset(-8)
         }
-        
-        favoriteButton.snp.makeConstraints { make in
-                       make.top.equalToSuperview().offset(8)
-                       make.right.equalToSuperview().offset(-8)
-                       make.width.height.equalTo(40) // Buton boyutu
-        }
     }
 }
-

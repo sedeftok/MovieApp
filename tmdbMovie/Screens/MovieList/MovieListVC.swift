@@ -20,7 +20,7 @@ class MovieListVC: UIViewController {
         collectionView.register(MovieListCollectionViewCell.self, forCellWithReuseIdentifier: MovieListCollectionViewCell.identifier)
         return collectionView
     }()
-    //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Add", style: .plain, target: self, action: #selector(addTapped))
+    
     var movieViewModel: MovieListViewModelProtocol?
     let context = appDelegate.persistentContainer.viewContext
     var favMovieList: [FavoriteMovie] = []
@@ -30,6 +30,10 @@ class MovieListVC: UIViewController {
         super.viewDidLoad()
         
         movieViewModel?.loadMovieList()
+        
+        navigationItem.title = "Movies"
+        navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 22)]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorites", style: .plain, target: self, action: #selector(showFavorites))
         
         initDelegate()
     }
@@ -66,6 +70,7 @@ class MovieListVC: UIViewController {
         
         movie.id = String(data.id ?? 0)
         movie.title = data.title
+        movie.poster = data.posterPath
         
         appDelegate.saveContext()
     }
@@ -86,22 +91,25 @@ class MovieListVC: UIViewController {
     private func fetchCoreData() {
         do {
             favMovieList = try context.fetch(FavoriteMovie.fetchRequest())
-            print(favMovieList)
+            //print(favMovieList)
+            for n in favMovieList {
+                print(n.title)
+                print(n.poster)
+            }
         } catch  {
             print(error)
+            
         }
     }
     
     private func isSelected(data: MovieListResult) -> Bool {
-        for i in favMovieList {
-            if i.title == data.title {
-                isSelectedMovie = true
-            }else{
-               isSelectedMovie = false
-            }
-        }
-        
-        return isSelectedMovie
+        return favMovieList.contains(where: { $0.title == data.title  &&  $0.poster == data.posterPath })
+    }
+    
+    @objc private func showFavorites() {
+        let favoritesViewController = FavoritesVC()
+        favoritesViewController.favMovieList = self.favMovieList
+        navigationController?.pushViewController(favoritesViewController, animated: true)
     }
 }
 
@@ -112,21 +120,14 @@ extension MovieListVC: MovieListViewModelDelegate {
 }
 
 extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MovieListCollectionProtocol {
-    func favoriteTapped(data: MovieListResult) {
-        guard !favMovieList.isEmpty else {
-            addCoreData(data: data)
-            return
-        }
-        
-        for i in favMovieList {
-            if i.title == data.title {
-                deleteCoreData(data: data)
-            }else{
-                addCoreData(data: data)
-            }
-        }
-    }
     
+    func favoriteTapped(data: MovieListResult) {
+        if isSelected(data: data) {
+               deleteCoreData(data: data)
+           } else {
+               addCoreData(data: data)
+           }
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         movieViewModel?.getMovieDataCount() ?? 0
@@ -165,5 +166,4 @@ extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         print(id)
         
     }
-    
 }

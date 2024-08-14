@@ -74,9 +74,6 @@ extension  MovieListDetailVC {
         name.snp.makeConstraints { make in
             make.top.equalTo(detailImage.snp.bottom).offset(24)
             make.centerX.equalToSuperview()
-            //make.right.equalToSuperview().offset(-8)
-            //make.bottom.equalToSuperview().offset(-8)
-            
         }
     }
 }
