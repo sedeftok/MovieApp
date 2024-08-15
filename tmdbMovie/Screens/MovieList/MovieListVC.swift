@@ -73,6 +73,8 @@ class MovieListVC: UIViewController {
         movie.poster = data.posterPath
         
         appDelegate.saveContext()
+        fetchCoreData()
+        collectionView.reloadData()
     }
     
     private func deleteCoreData(data: MovieListResult) {
@@ -84,6 +86,8 @@ class MovieListVC: UIViewController {
                 self.context.delete(movie)
                 
                 appDelegate.saveContext()
+                fetchCoreData()
+                collectionView.reloadData()
             }
         }
     }
@@ -127,6 +131,8 @@ extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
            } else {
                addCoreData(data: data)
            }
+        fetchCoreData()
+        collectionView.reloadData()
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
