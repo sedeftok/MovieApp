@@ -14,6 +14,7 @@ protocol MovieListViewModelProtocol {
     func getMovieData() -> [MovieListResult]
     func getMovieDataCount() -> Int
     func updateMovieData(at index: Int, with movie: MovieListResult)
+    func filterMovies(by searchText: String)
 }
 
 protocol MovieListViewModelDelegate {
@@ -49,6 +50,10 @@ extension MovieListViewModel {
     func updateMovieData(at index: Int, with movie: MovieListResult) {
             guard index >= 0 && index < movieData.count else { return }
             movieData[index] = movie
+        }
+    
+    func filterMovies(by searchText: String) {
+            movieData = movieData.filter { $0.title?.lowercased().contains(searchText.lowercased()) ?? false }
         }
 }
 

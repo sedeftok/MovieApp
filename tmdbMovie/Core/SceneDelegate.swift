@@ -6,30 +6,33 @@
 //
 
 import UIKit
+import Firebase
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
-        let window = UIWindow(windowScene: windowScene)
-        
-        let movieListViewController = MovieListBuilder.makeMovieList()
-        
-        let navigationController = UINavigationController(rootViewController: movieListViewController)
-        
-        window.rootViewController = navigationController
-        //self.window?.rootViewController = MovieListBuilder.makeMovieList()
-        window.makeKeyAndVisible()
-        self.window = window
-        
-    }
+               
+               let window = UIWindow(windowScene: windowScene)
+               
+               if Auth.auth().currentUser != nil {
+                   // Kullanıcı giriş yapmışsa, MovieListVC'yi göster
+                   let movieListVC = MovieListBuilder.makeMovieList()
+                   let navController = UINavigationController(rootViewController: movieListVC)
+                   window.rootViewController = navController
+               } else {
+                   // Kullanıcı giriş yapmamışsa, AccountVC'yi göster
+                   let accountVC = AccountVC()
+                   let navController = UINavigationController(rootViewController: accountVC)
+                   window.rootViewController = navController
+               }
+               
+               self.window = window
+               window.makeKeyAndVisible()
+           }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.

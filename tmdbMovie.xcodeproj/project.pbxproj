@@ -27,6 +27,9 @@
 		398667BD2C64F50400BA1D01 /* MovieDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 398667BC2C64F50400BA1D01 /* MovieDetailModel.swift */; };
 		39981F922C6B44BD002E3A17 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39981F912C6B44BD002E3A17 /* Movie.swift */; };
 		39981F952C6C8D45002E3A17 /* FavoritesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39981F942C6C8D45002E3A17 /* FavoritesVC.swift */; };
+		39BCBB892C74C3E500E93DC5 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 39BCBB882C74C3E500E93DC5 /* FirebaseAuth */; };
+		39BCBB8C2C74C59100E93DC5 /* AccountVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39BCBB8B2C74C59100E93DC5 /* AccountVC.swift */; };
+		39CACF972C75C4AB00E4E573 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 39CACF962C75C4AB00E4E573 /* GoogleService-Info.plist */; };
 		39D275152C623B8A00891FDC /* MovieListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +53,8 @@
 		398667BC2C64F50400BA1D01 /* MovieDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailModel.swift; sourceTree = "<group>"; };
 		39981F912C6B44BD002E3A17 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		39981F942C6C8D45002E3A17 /* FavoritesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
+		39BCBB8B2C74C59100E93DC5 /* AccountVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountVC.swift; sourceTree = "<group>"; };
+		39CACF962C75C4AB00E4E573 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		39D275142C623B8A00891FDC /* MovieListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +66,7 @@
 				392220FD2C60C601007BA3A7 /* Kingfisher in Frameworks */,
 				392220F72C60C5DB007BA3A7 /* Alamofire in Frameworks */,
 				392220FA2C60C5F0007BA3A7 /* SnapKit in Frameworks */,
+				39BCBB892C74C3E500E93DC5 /* FirebaseAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -110,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				392220EF2C60C5C0007BA3A7 /* Info.plist */,
+				39CACF962C75C4AB00E4E573 /* GoogleService-Info.plist */,
 				392220EC2C60C5C0007BA3A7 /* LaunchScreen.storyboard */,
 				392220EA2C60C5C0007BA3A7 /* Assets.xcassets */,
 			);
@@ -119,6 +126,7 @@
 		392221002C60C64B007BA3A7 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				39BCBB8A2C74C56600E93DC5 /* Account */,
 				39981F932C6C8D1A002E3A17 /* FavoriteMovies */,
 				398667B52C649F3D00BA1D01 /* MovieListDetail */,
 				392221012C60C65B007BA3A7 /* MovieList */,
@@ -182,6 +190,14 @@
 			path = FavoriteMovies;
 			sourceTree = "<group>";
 		};
+		39BCBB8A2C74C56600E93DC5 /* Account */ = {
+			isa = PBXGroup;
+			children = (
+				39BCBB8B2C74C59100E93DC5 /* AccountVC.swift */,
+			);
+			path = Account;
+			sourceTree = "<group>";
+		};
 		39D275112C623ADC00891FDC /* Extentions */ = {
 			isa = PBXGroup;
 			children = (
@@ -209,6 +225,7 @@
 				392220F62C60C5DB007BA3A7 /* Alamofire */,
 				392220F92C60C5F0007BA3A7 /* SnapKit */,
 				392220FC2C60C601007BA3A7 /* Kingfisher */,
+				39BCBB882C74C3E500E93DC5 /* FirebaseAuth */,
 			);
 			productName = tmdbMovie;
 			productReference = 392220DE2C60C5BE007BA3A7 /* tmdbMovie.app */;
@@ -242,6 +259,7 @@
 				392220F52C60C5DB007BA3A7 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				392220F82C60C5F0007BA3A7 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				392220FB2C60C601007BA3A7 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				39BCBB872C74C3E500E93DC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 392220DF2C60C5BE007BA3A7 /* Products */;
 			projectDirPath = "";
@@ -259,6 +277,7 @@
 			files = (
 				392220EE2C60C5C0007BA3A7 /* LaunchScreen.storyboard in Resources */,
 				392220EB2C60C5C0007BA3A7 /* Assets.xcassets in Resources */,
+				39CACF972C75C4AB00E4E573 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +303,7 @@
 				39D275152C623B8A00891FDC /* MovieListCollectionViewCell.swift in Sources */,
 				392221082C60C6A0007BA3A7 /* MovieListVC.swift in Sources */,
 				392221062C60C687007BA3A7 /* MovieListViewModel.swift in Sources */,
+				39BCBB8C2C74C59100E93DC5 /* AccountVC.swift in Sources */,
 				3941157A2C66031D00E7E675 /* MovieModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +538,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		39BCBB872C74C3E500E93DC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -535,6 +563,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 392220FB2C60C601007BA3A7 /* XCRemoteSwiftPackageReference "Kingfisher" */;
 			productName = Kingfisher;
+		};
+		39BCBB882C74C3E500E93DC5 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 39BCBB872C74C3E500E93DC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 

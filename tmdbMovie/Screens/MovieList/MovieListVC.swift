@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Firebase
 
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
@@ -21,6 +22,13 @@ class MovieListVC: UIViewController {
         return collectionView
     }()
     
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = "Search Movies"
+        searchBar.delegate = self
+        return searchBar
+    }()
+    
     var movieViewModel: MovieListViewModelProtocol?
     let context = appDelegate.persistentContainer.viewContext
     var favMovieList: [FavoriteMovie] = []
@@ -33,13 +41,15 @@ class MovieListVC: UIViewController {
         
         navigationItem.title = "Movies"
         navigationController?.navigationBar.titleTextAttributes = [.font: UIFont.systemFont(ofSize: 22)]
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favorites", style: .plain, target: self, action: #selector(showFavorites))
+        
+        let favoritesButton = UIBarButtonItem(title: "Favorites", style: .plain, target: self, action: #selector(showFavorites))
+           navigationItem.rightBarButtonItem = favoritesButton
+        
+        let logoutButton = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logoutButtonTapped))
+            navigationItem.leftBarButtonItem = logoutButton
+        
         
         initDelegate()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        fetchCoreData()
     }
     
     private func initDelegate() {
@@ -51,20 +61,25 @@ class MovieListVC: UIViewController {
         configure()
     }
     
+    
     private func configure() {
         view.backgroundColor = .white
+        
+        view.addSubview(searchBar)
         view.addSubview(collectionView)
         
-        movieCollectionView()
-    }
-    
-    private func movieCollectionView() {
+        searchBar.snp.makeConstraints { make in
+                  make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+                  make.left.right.equalTo(view)
+                  make.height.equalTo(44)
+        }
+        
         collectionView.snp.makeConstraints { make in
-            make.top.bottom.equalTo(view.safeAreaLayoutGuide)
-            make.left.right.equalTo(view)
+                   make.top.equalTo(searchBar.snp.bottom)
+                   make.left.right.bottom.equalTo(view)
         }
     }
-    
+
     private func addCoreData(data: MovieListResult) {
         let movie = FavoriteMovie(context: context)
         
@@ -97,8 +112,8 @@ class MovieListVC: UIViewController {
             favMovieList = try context.fetch(FavoriteMovie.fetchRequest())
             //print(favMovieList)
             for n in favMovieList {
-                print(n.title)
-                print(n.poster)
+                print(n.title ?? "")
+                print(n.poster ?? "")
             }
         } catch  {
             print(error)
@@ -115,10 +130,38 @@ class MovieListVC: UIViewController {
         favoritesViewController.favMovieList = self.favMovieList
         navigationController?.pushViewController(favoritesViewController, animated: true)
     }
+    
+    @objc private func showAccount() {
+        let accountVC = AccountVC()
+        navigationController?.pushViewController(accountVC, animated: true)
+    }
+    
+    @objc private func logoutButtonTapped() {
+            do {
+                try Auth.auth().signOut()
+                let accountVC = AccountVC()
+                let navController = UINavigationController(rootViewController: accountVC)
+                navController.modalPresentationStyle = .fullScreen
+                self.present(navController, animated: true, completion: nil)
+            } catch {
+                print("Çıkış yapma hatası: \(error.localizedDescription)")
+            }
+        }
 }
 
 extension MovieListVC: MovieListViewModelDelegate {
     func success() {
+        collectionView.reloadData()
+    }
+}
+
+extension MovieListVC: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            movieViewModel?.loadMovieList()
+        } else {
+            movieViewModel?.filterMovies(by: searchText)
+        }
         collectionView.reloadData()
     }
 }
@@ -162,7 +205,7 @@ extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         
       let itemW = (width - 48) / 2
       return CGSize(width: itemW, height: itemW * 1.6)
-      }
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let data = movieViewModel?.getMovieData() else { return }
@@ -170,6 +213,6 @@ extension MovieListVC: UICollectionViewDelegate, UICollectionViewDataSource, UIC
         let vc = MovieListDetailBuilder.makeMovieList(id: id)
         self.present(vc, animated: true)
         print(id)
-        
     }
 }
+
